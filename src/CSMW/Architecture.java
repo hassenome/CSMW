@@ -9,7 +9,7 @@ import m1.database.DataBase;
 import m2.*;
 import m2.interfaces.PortFourni;
 
-public class Launcher 
+public class Architecture 
 {	
 	public static void main(String... args){
 
