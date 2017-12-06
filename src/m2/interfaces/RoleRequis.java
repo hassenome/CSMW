@@ -1,5 +1,6 @@
 package m2.interfaces;
 
+import m2.Connecteur;
 
 public class RoleRequis implements Role 
 {
@@ -19,7 +20,12 @@ public class RoleRequis implements Role
 	}
 	
 	public void receive(String message){
-		System.out.println("reception du message: "+message+"par"+getNom());
+		System.out.println("Message reçu: "+message+"par le role"+getNom());		
+		Connecteur C = this.glue.getConnecteur();
+		Glue nextGlue = C.getGlue2();
+		((RoleRequis) nextGlue.getRoles().get(0)).receive(message);
+		
+		
 	}
 	
 	public String getNom(){

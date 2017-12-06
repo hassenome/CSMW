@@ -15,23 +15,32 @@ public class Architecture
 {	
 	public static void main(String... args){
 
-	System.out.println("Preparation du système...");
+	System.out.println("Preparation du systÃ¨me...");
 	
 	Client client = new Client("CHARLY1");
 	ArrayList<PortRequis> tmp = client.getPortsRequis();	
 	PortRequis pf1 = new PortRequis("portMessage");		
 	
-	ClientAServeurRF CSRF = new ClientAServeurRF("message");
-	ServeurAClientRR SCRR = new ServeurAClientRR("message");
-	ClientAServeurG CASG = new ClientAServeurG("message", CSRF, SCRR);
-	CSRF.setGlue(CASG);
-	
-	ServeurAClientG SACG = new ServeurAClientG("meceptionMessage", XXX, XXX);
-	RPC rpcConnecteur = new RPC("RPC_CONNECT1", CASG, SACG);
+	ClientAServeurRF CSRF = new ClientAServeurRF("ClientAServeurRF");
+	ServeurAClientRR SCRR = new ServeurAClientRR("ServeurAClientRR");
+	ClientAServeurG CASG = new ClientAServeurG("ClientAServeurG", CSRF, SCRR);
+	CSRF.setGlue(CASG);	
 	
 	Attachment A = new Attachment(pf1, CSRF);
 	pf1.setAttachment(A);	
 	
+	ClientAServeurRF CSRR = new ClientAServeurRR("ClientAServeurRR"); 
+	ServeurAClientRF SCRF = new ServeurAClientRF("ServeurAClientRF");
+	ServeurAClientG SACG = new ServeurAClientG("ServeurAClientG", CSRR, SCRF);
+	SCRF.setGlue(SACG);
+	RPC rpcConnecteur = new RPC("RPC_CONNECT1", CASG, SACG);
+	CASG.setConnecteur(rpcConnecteur);
+	SACG.setConnecteur(rpcConnecteur);
+	PortFourni ServeurEntree = new PortFourni("portServeurEntree");
+	Attachment A2 = new Attachment(ServeurEntree, SCRR);
+	ServeurEntree.setAttachment(A2);
+	
+		
 	tmp.add(pf1);
 	client.setPortsRequis(tmp);
 	ArrayList<ComposantConcret> composantsBase = new ArrayList<ComposantConcret>();

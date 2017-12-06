@@ -20,6 +20,6 @@ public class Client extends ComposantConcret{
 	}
 	
 	public void receive(PortRequis portRequis){
-		System.out.println("Reception message par"+getName()+"du port"+portRequis.getNom());
+		System.out.println("Reception message par"+getName()+"du port"+portRequis.getNom());		
 	}
 }

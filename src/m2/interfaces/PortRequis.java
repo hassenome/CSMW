@@ -11,6 +11,7 @@ public class PortRequis extends Port
 	public void envoyer(String message){
 		// traitement qui manque ici
 		System.out.println("le message: "+message+" passe par "+getNom());
-		Glue currentGlue = this.getAttachment().getRole().getGlue();
+		RoleFourni currentRole = (RoleFourni) this.getAttachment().getRole();
+		currentRole.receive(message);		
 	}
 }
