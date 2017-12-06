@@ -11,9 +11,9 @@ public class Client extends ComposantConcret{
 	}
 	
 	public void envoyer(String message){
-		System.out.println("Envoie du message par client "+this.getName()+": "+message);
-		for(PortFourni pf : this.getPortsFourni()){
-			if(pf.getNom().equals("pf1")){
+		System.out.println("Message du client "+this.getName()+": "+message);
+		for(PortRequis pf : this.getPortsRequis()){
+			if(pf.getNom().equals("portMessage")){
 				pf.envoyer(message);
 			}
 		}

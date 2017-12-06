@@ -2,31 +2,41 @@ package m2;
 
 import java.util.ArrayList;
 
+import m2.interfaces.Glue;
 import m2.interfaces.InterfaceConnecteur;
 
 public class Connecteur 
 {
-	private InterfaceConnecteur interfaceConnecteur1;
-	private InterfaceConnecteur interfaceConnecteur2;
+	private String nom;
+	private Glue glue1;
+	private Glue glue2;
 	
-	public Connecteur(InterfaceConnecteur i1, InterfaceConnecteur i2){
-		interfaceConnecteur1 = i1;
-		interfaceConnecteur2 = i2;
+	
+	
+	public Connecteur(String nom, Glue glue1, Glue glue2) {
+		super();
+		this.nom = nom;
+		this.glue1 = glue1;
+		this.glue2 = glue2;
 	}
-
-	public InterfaceConnecteur getInterfaceConnecteur1() {
-		return interfaceConnecteur1;
+	
+	public String getNom() {
+		return nom;
 	}
-
-	public void setInterfaceConnecteur1(InterfaceConnecteur interfaceConnecteur1) {
-		this.interfaceConnecteur1 = interfaceConnecteur1;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
-
-	public InterfaceConnecteur getInterfaceConnecteur2() {
-		return interfaceConnecteur2;
+	public Glue getGlue1() {
+		return glue1;
 	}
-
-	public void setInterfaceConnecteur2(InterfaceConnecteur interfaceConnecteur2) {
-		this.interfaceConnecteur2 = interfaceConnecteur2;
+	public void setGlue1(Glue glue1) {
+		this.glue1 = glue1;
 	}
+	public Glue getGlue2() {
+		return glue2;
+	}
+	public void setGlue2(Glue glue2) {
+		this.glue2 = glue2;
+	}
+	
 }

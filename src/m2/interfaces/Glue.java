@@ -2,18 +2,16 @@ package m2.interfaces;
 
 import java.util.ArrayList;
 
+import m2.Connecteur;
+
 public class Glue 
 {
 	private String nom;
 	private ArrayList<Role> roles;
+	private Connecteur connecteur;
 	
-	/**
-	 * 
-	 * @param n 			Nom de la glue.
-	 * @param roleRequis	Un des roles requis minimal de la glue. 
-	 * @param roleFourni	Un des roles fourni minimal de la glue.
-	 * @warning				La glue doit obligatoirement avoir un role requis et un role fourni.
-	 */
+	
+	
 	public Glue(String n, Role roleRequis, Role roleFourni){
 		nom = n;
 		roles =  new ArrayList<Role>();
@@ -35,5 +33,13 @@ public class Glue
 
 	public void setRoles(ArrayList<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Connecteur getConnecteur() {
+		return connecteur;
+	}
+
+	public void setConnecteur(Connecteur connecteur) {
+		this.connecteur = connecteur;
 	}
 }
