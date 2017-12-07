@@ -2,12 +2,13 @@ package m2.interfaces;
 
 import m2.Binding;
 
-public class PortConfiguration {
+public class PortConfiguration  extends PortRequis{
 
 	private String nom;
 	private Binding binding;
 	
 	public PortConfiguration(String n){
+		super(n);
 		nom = n;
 	}
 

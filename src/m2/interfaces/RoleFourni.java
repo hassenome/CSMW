@@ -20,12 +20,14 @@ public class RoleFourni implements Role
 	}
 
 	public void receive(String message){
-		System.out.println("Message reçu: ["+message+"] par le role "+getNom());		
+		System.out.println("Message reçu: ["+message+"] par le role "+getNom());
+		/*
 		Connecteur C = this.glue.getConnecteur();		
 		Glue nextGlue = C.getGlue2();
-		((RoleFourni) nextGlue.getRoles().get(0)).receive(message);
-		
-		
+		((RoleRequis) nextGlue.getRoles().get(0)).receive(message);
+		*/
+		Glue targetGlue = this.getGlue();
+		((RoleRequis) targetGlue.getRoles().get(0)).receive(message);
 	}
 
 	public String getNom() {

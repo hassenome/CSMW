@@ -46,6 +46,17 @@ public class ComposantConcret extends Composant{
 	public void setPortsRequis(ArrayList<PortRequis> portsRequis) {
 		this.portsRequis = portsRequis;
 	}
+	
+	public void setPortRequis(PortRequis portRequis) {
+		this.portsRequis = new ArrayList<PortRequis>();
+		this.portsRequis.add(portRequis);
+	}
+	
+	public void setPortFournis(PortFourni portFourni) {
+		// TODO Auto-generated method stub
+		this.portsFourni = new ArrayList<PortFourni>();
+		this.portsFourni.add(portFourni);
+	}
 
 	public ArrayList<Propriete> getProperties() {
 		return properties;
