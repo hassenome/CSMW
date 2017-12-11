@@ -2,49 +2,50 @@ package CSMW;
 
 import java.util.ArrayList;
 
-import m1.*;
-import m1.client.Client;
-import m1.connectionmanager.ConnectionManager;
-import m1.database.DataBase;
-import m2.*;
-import m2.interfaces.Glue;
-import m2.interfaces.PortConfigurationRequis;
-import m2.interfaces.PortFourni;
-import m2.interfaces.PortRequis;
+import architecture.client.Client;
+import architecture.connectionmanager.ConnectionManager;
+import architecture.database.DataBase;
+import architecture.links.*;
+import metamodel.*;
+import metamodel.interfaces.AccessConfig;
+import metamodel.interfaces.Glue;
+import metamodel.interfaces.PortFourni;
+import metamodel.interfaces.PortRequis;
+import architecture.links.SecurityManager;
 
 public class Architecture 
 {	
 	public static void main(String... args){
 
-	System.out.println("Preparation du système...");
+	System.out.println("__ Preparation du système ...");
 	
 	Client client = new Client("CHARLY1");
-	ArrayList<PortRequis> tmp = client.getPortsRequis();	
-	PortRequis pf1 = new PortRequis("portMessage");		
+	ArrayList<PortFourni> tmp = client.getPortsRequis();	
+	PortFourni pf1 = new PortFourni("portMessage");		
 	
-	ClientAServeurRF CSRF = new ClientAServeurRF("ClientAServeurRF");
-	ServeurAClientRR SCRR = new ServeurAClientRR("ServeurAClientRR");
-	ClientAServeurRR CSRR = new ClientAServeurRR("ClientAServeurRR");
-	ClientAServeurG CASG = new ClientAServeurG("ClientAServeurG", CSRF, CSRR);
+	CS_RoleFourni CSRF = new CS_RoleFourni("ClientAServeurRF");
+	SC_RoleRequis SCRR = new SC_RoleRequis("ServeurAClientRR");
+	CS_RoleRequis CSRR = new CS_RoleRequis("ClientAServeurRR");
+	CS_Glue CASG = new CS_Glue("ClientAServeurG", CSRF, CSRR);
 	CSRF.setGlue(CASG);	
 	CSRR.setGlue(CASG);
 	
 	Attachment A = new Attachment(pf1, CSRF);
 	pf1.setAttachment(A);	
 	
-	ServeurAClientRF SCRF = new ServeurAClientRF("ServeurAClientRF");
-	ServeurAClientG SACG = new ServeurAClientG("ServeurAClientG", SCRF, SCRR);	
+	SC_RoleFourni SCRF = new SC_RoleFourni("ServeurAClientRF");
+	SC_Glue SACG = new SC_Glue("ServeurAClientG", SCRF, SCRR);	
 	
 	SCRF.setGlue(SACG);
 	SCRR.setGlue(SACG);
-	RPC rpcConnecteur = new RPC("RPC_CONNECT1", CASG, SACG);
+	RPCConnector rpcConnecteur = new RPCConnector("RPC_CONNECT1", CASG, SACG);
 	CASG.setConnecteur(rpcConnecteur);
 	SACG.setConnecteur(rpcConnecteur);
-	PortFourni ServeurEntree = new PortFourni("portServeurEntree");
+	PortRequis ServeurEntree = new PortRequis("portServeurEntree");
 	Attachment A2 = new Attachment(ServeurEntree, CSRR);
 	CSRR.setPortAttachment(A2);
 	ServeurEntree.setAttachment(A2);
-	PortConfigurationRequis PConf = new PortConfigurationRequis("portConfigRequis");
+	AccessConfig PConf = new AccessConfig("portConfigRequis");
 	Binding PortConfig = new Binding(ServeurEntree,PConf);
 	ServeurEntree.setBinding(PortConfig);
 	PConf.setBinding(PortConfig);	
@@ -55,9 +56,9 @@ public class Architecture
 	client.setPortsRequis(tmp);
 	ArrayList<ComposantConcret> composantsBase = new ArrayList<ComposantConcret>();
 	
-	composantsBase.add(new Serveur("serveur"));
+	composantsBase.add(new ServeurComponent("serveur"));
 	composantsBase.get(0).setPortFournis(ServeurEntree);
-	composantsBase.add(new HSecurityManager("security manager"));
+	composantsBase.add(new SecurityManager("security manager"));
 	composantsBase.add(new ConnectionManager("connection manager"));
 	composantsBase.add(new DataBase("data base"));
 	
@@ -65,9 +66,9 @@ public class Architecture
 	
 	
 
-	ClientServeur CS = new ClientServeur("conf1",client);
+	Client_Serveur CS = new Client_Serveur("conf1",client);
 	Systeme sys = new Systeme(CS);
 	sys.getClientServeur().ajouterComposant(client);
-	sys.getClientServeur().getClient().envoyer("Architecture test super C/S SIMULATION!");				
+	sys.getClientServeur().getClient().envoyer("Quel est l'age de toto ?");				
 	}
 }
